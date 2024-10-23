@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Clipping Organizer</title>
+    <style>
+        /* Ensure normal font weight for news body */
+        .news-body {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <h1>News Clipping Organizer</h1>
+    
+    <!-- Form to add news -->
+    <form action="/add_news" method="POST">
+        <label for="category">Select Category:</label>
+        <select name="category" id="category">
+            <option value="Companies">Companies</option>
+            <option value="World">World</option>
+        </select>
+        
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        
+        <label for="link">Link:</label>
+        <input type="url" id="link" name="link" required>
+        
+        <label for="news_body">News Body:</label>
+        <textarea id="news_body" name="news_body" rows="4" required></textarea>
+        
+        <button type="submit">Add News</button>
+    </form>
+
+    <hr>
+
+    <!-- Summary Section -->
+    <h2>Summary</h2>
+    <h3>1. Companies</h3>
+    <ul>
+        {% for i in range(1, companies|length + 1) %}
+            <li>1.{{ i }} <a href="{{ companies[i-1].link }}">{{ companies[i-1].title }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h3>2. World</h3>
+    <ul>
+        {% for i in range(1, world|length + 1) %}
+            <li>2.{{ i }} <a href="{{ world[i-1].link }}">{{ world[i-1].title }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <!-- Display Companies News -->
+    <h2>1. Companies</h2>
+    <ul>
+        {% for i in range(1, companies|length + 1) %}
+            <li>1.{{ i }} <a href="{{ companies[i-1].link }}">{{ companies[i-1].title }}</a></li>
+            <div class="news-body">{{ companies[i-1].news_body | replace('\n', '<br>') | safe }}</div>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <!-- Display World News -->
+    <h2>2. World</h2>
+    <ul>
+        {% for i in range(1, world|length + 1) %}
+            <li>2.{{ i }} <a href="{{ world[i-1].link }}">{{ world[i-1].title }}</a></li>
+            <div class="news-body">{{ world[i-1].news_body | replace('\n', '<br>') | safe }}</div>
+        {% endfor %}
+    </ul>
+</body>
+</html>
